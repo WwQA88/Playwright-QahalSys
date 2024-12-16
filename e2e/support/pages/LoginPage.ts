@@ -1,5 +1,5 @@
-import { Page, Locator } from '@playwright/test'
-import { CredentialsCore } from '../../fixtures/CredentialsCore'
+import { Page, Locator, expect } from '@playwright/test'
+import { CredentialsPattern } from '../../fixtures/CredentialsPattern'
 
 export class LoginPage {
     readonly page: Page
@@ -18,9 +18,14 @@ export class LoginPage {
        await this.page.goto('/app/signin/')
     }
 
-    async performLogin(userName: CredentialsCore, password: CredentialsCore) {
+    async login(userName: CredentialsPattern, password: CredentialsPattern) {
         await this.inputUserName.fill(userName.name)
         await this.inputPassword.fill(password.secret)
         await this.submitButtonEnter.click()
+    }
+
+    async loginFailAlert(text: string) {
+        const alertMessage = this.page.locator('#swal2-content')
+        await expect(alertMessage).toHaveText(text)
     }
 }
