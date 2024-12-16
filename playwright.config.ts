@@ -34,7 +34,7 @@ export default defineConfig({
     baseURL: 'https://www.qahalsys.com.br/app/signin/',
     screenshot: 'on',
     /*video: 'on',*/
-    headless: false
+    /*headless: false */
   },
 
   /* Configure projects for major browsers */
