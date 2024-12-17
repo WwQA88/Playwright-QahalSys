@@ -12,7 +12,7 @@ test.beforeEach(({ page }) => {
 
 test.describe('Login Validation', () => {
 
-    test('Success Login Admin', async ({ page }) => {
+    test.only('Success Login Admin', async ({ page }) => {
         const userNameAdm = data.userNameAdm as CredentialsPattern
         const passwordAdm = data.passwordAdm as CredentialsPattern
 

@@ -1,5 +1,6 @@
 import { Page, Locator, expect } from '@playwright/test'
 import { CredentialsPattern } from '../../fixtures/CredentialsPattern'
+import exp from 'constants'
 
 export class LoginPage {
     readonly page: Page
@@ -15,13 +16,28 @@ export class LoginPage {
     }
 
     async accessWebSite() {
-       await this.page.goto('/app/signin/')
+        await this.page.goto('/app/signin/')
     }
 
     async login(userName: CredentialsPattern, password: CredentialsPattern) {
         await this.inputUserName.fill(userName.name)
         await this.inputPassword.fill(password.secret)
-        await this.submitButtonEnter.click()
+        await this.submitButtonEnter.click()      
+
+        const iframe = this.page.frameLocator('#TB_iframeContent')
+        const activeSession = iframe.locator("//*[@id='kt_body']//*[@id='id_sc_logged_user']")
+        await this.page.waitForLoadState('networkidle')
+
+        if (await activeSession.isVisible()) {
+            activeSession.click()
+            await this.page.waitForLoadState('networkidle')
+            const burguerMenu = await this.page.locator('#bmenu').isVisible()
+            await this.page.waitForLoadState('networkidle')
+        } else {
+            activeSession.isHidden
+            const burguerMenu = await this.page.locator('#bmenu').isVisible()
+            await this.page.waitForLoadState('networkidle')
+        }
     }
 
     async loginFailAlert(text: string) {
