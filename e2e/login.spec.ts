@@ -2,22 +2,25 @@ import { test, expect, Locator, Page } from '@playwright/test'
 import { LoginPage } from './support/pages/LoginPage'
 import { CredentialsPattern } from './fixtures/CredentialsPattern'
 import data from './fixtures/credentials.json'
+import { LogoutPage } from './support/pages/LogoutPage'
 
 
 let loginPage: LoginPage
+let logoutPage: LogoutPage
 
 test.beforeEach(({ page }) => {
     loginPage = new LoginPage(page)
+    logoutPage = new LogoutPage(page)
 })
 
 test.describe('Login Validation', () => {
 
-    test.only('Success Login Admin', async ({ page }) => {
+    test('Success Login Admin', async ({ page }) => {
         const userNameAdm = data.userNameAdm as CredentialsPattern
         const passwordAdm = data.passwordAdm as CredentialsPattern
 
         await loginPage.accessWebSite()
-        await loginPage.login(userNameAdm, passwordAdm)   
+        await loginPage.login(userNameAdm, passwordAdm)           
     })
 
     test('Success Login Member', async ({ page }) => {
@@ -25,7 +28,7 @@ test.describe('Login Validation', () => {
         const passwordMember = data.passwordMember as CredentialsPattern
 
         await loginPage.accessWebSite()
-        await loginPage.login(userNameMember, passwordMember)   
+        await loginPage.login(userNameMember, passwordMember)         
     })
 
     test('Invalid Credentials Login', async ({ page }) => {
@@ -62,5 +65,26 @@ test.describe('Login Validation', () => {
         await loginPage.accessWebSite()
         await loginPage.login(userInvalid, passwordEmpty)
         await loginPage.loginFailAlert('ERROR: Você precisa preencher suas informações de acesso.')
+    })    
+})
+
+test.describe('Active Session Validation', () => {
+
+    test('Active Session Proceed', async ({ page }) => {        
+        const userNameAdm = data.userNameAdm as CredentialsPattern
+        const passwordAdm = data.passwordAdm as CredentialsPattern
+
+        await loginPage.accessWebSite()
+        await loginPage.activeSessionProceed(userNameAdm, passwordAdm)
+        await logoutPage.logout()
     })
+
+    test('Active Session Abort', async ({ page }) => {        
+        const userNameMember = data.userNameMember as CredentialsPattern
+        const passwordMember = data.passwordMember as CredentialsPattern
+
+        await loginPage.accessWebSite()
+        await loginPage.activeSessionAbort(userNameMember, passwordMember)
+    })
+
 })
