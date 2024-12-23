@@ -33,7 +33,7 @@ export default defineConfig({
     trace: 'on-first-retry',
     baseURL: 'https://www.qahalsys.com.br/app/signin/',
     screenshot: 'on',
-    /*video: 'on',*/
+    video: 'on',
     /*headless: false */
   },
 
@@ -44,17 +44,17 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
 
-    // {
-    //   name: 'firefox',
-    //   use: { ...devices['Desktop Firefox'] },
-    // },
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+    },
 
-    // {
-    //   name: 'webkit',
-    //   use: { ...devices['Desktop Safari'] },
-    // },
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
+    },
 
-    /* Test against mobile viewports. */
+    /* Test against mobile viewports.  */
     // {
     //   name: 'Mobile Chrome',
     //   use: { ...devices['Pixel 5'] },
