@@ -9,7 +9,7 @@ export class LoginPage {
     readonly submitButtonEnter: Locator
     readonly iframe: FrameLocator
     readonly activeSessionIframeContBtn: Locator
-    readonly activeSessionIframeContCnl: Locator
+    readonly activeSessionIframeCnclBtn: Locator
     readonly burguerMenu: Locator
     constructor(page: Page) {
 
@@ -19,8 +19,8 @@ export class LoginPage {
         this.submitButtonEnter = page.locator('#kt_login_signin_submit')
         this.iframe = page.frameLocator('#TB_iframeContent')
         this.activeSessionIframeContBtn = this.iframe.locator("//*[@id='kt_body']//*[@id='id_sc_logged_user']")
-        this.activeSessionIframeContCnl = this.iframe.locator('button[data-dismiss*=modal]')
-        this.burguerMenu = page.locator('#bmenu')        
+        this.activeSessionIframeCnclBtn = this.iframe.locator('button[data-dismiss*=modal]')
+        this.burguerMenu = page.locator('#bmenu')
     }
 
     async accessWebSite() {
@@ -33,20 +33,16 @@ export class LoginPage {
         await this.inputPassword.fill(password.secret)
         await this.submitButtonEnter.click()
 
-        //this.activeSessionIframeContBtn
-        await this.page.waitForLoadState('networkidle')
-
+        await this.page.waitForTimeout(5000)
+        
         if (await this.activeSessionIframeContBtn.isVisible()) {
 
             await this.activeSessionIframeContBtn.click()
-            await this.page.waitForLoadState('networkidle')
             this.burguerMenu.isVisible()
-            await this.page.waitForLoadState('networkidle')
         } else {
 
             this.activeSessionIframeContBtn.isHidden
             this.burguerMenu.isVisible()
-            await this.page.waitForLoadState('networkidle')
         }
     }
 
@@ -61,12 +57,9 @@ export class LoginPage {
         await this.inputUserName.fill(userName.name)
         await this.inputPassword.fill(password.secret)
         await this.submitButtonEnter.click()
-        await this.page.waitForLoadState('networkidle')
         this.activeSessionIframeContBtn.isVisible()
         await this.activeSessionIframeContBtn.click()
-        await this.page.waitForLoadState('networkidle')
         this.burguerMenu.isVisible()
-        await this.page.waitForLoadState('networkidle')        
     }
 
     async activeSessionAbort(userName: CredentialsPattern, password: CredentialsPattern) {
@@ -74,8 +67,7 @@ export class LoginPage {
         await this.inputUserName.fill(userName.name)
         await this.inputPassword.fill(password.secret)
         await this.submitButtonEnter.click()
-        await this.page.waitForLoadState('networkidle')
-        this.activeSessionIframeContCnl.isVisible()
-        await this.activeSessionIframeContCnl.click()
+        this.activeSessionIframeCnclBtn.isVisible()
+        await this.activeSessionIframeCnclBtn.click()
     }
 }
