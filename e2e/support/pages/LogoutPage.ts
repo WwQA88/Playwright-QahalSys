@@ -19,6 +19,7 @@ export class LogoutPage {
     
     await this.account.isVisible()
     await this.account.click()
+    await this.page.waitForTimeout(1000)
     await this.exit.click()
   }
 
