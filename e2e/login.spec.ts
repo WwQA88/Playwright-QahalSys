@@ -23,7 +23,7 @@ test.describe('Login Validation', () => {
         await loginPage.accessWebSite()
         await loginPage.login(userNameAdm, passwordAdm)
         await logoutPage.logout()
-    });
+    })
 
     test('Success Login Member', async ({ page, browser }) => {
         const userNameMember = data.userNameMember as CredentialsPattern
@@ -64,7 +64,7 @@ test.describe('Login Validation', () => {
     test('Missing password Login', async ({ page, browser }) => {
         const userInvalid = data.userInvalid as CredentialsPattern
         const passwordEmpty = data.emptyPassword as CredentialsPattern
-        const browserName = browser.browserType().name() // Getting the Browser Name
+        const browserName = browser.browserType().name()
 
         await loginPage.accessWebSite()
         await loginPage.login(userInvalid, passwordEmpty)
