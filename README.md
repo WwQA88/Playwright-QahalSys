@@ -109,7 +109,7 @@ Este repositório inclui três especificações (specs):
 
 ## Contribuições
 
-Contribuições são bem-vindas! Para reportar problemas ou sugerir melhorias, abra uma [issue](https://github.com/suarepo/issues) neste repositório.
+Contribuições são bem-vindas! Para reportar problemas ou sugerir melhorias, abra uma [issue](https://github.com/WwQA88/Playwright-QahalSys/issues) neste repositório.
 
 ---
 
